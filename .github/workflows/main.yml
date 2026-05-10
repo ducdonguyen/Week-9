@@ -1,17 +1,22 @@
+name: CI Optimization & Caching
+
+# Đây là phần bị thiếu:
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '17' # Hoặc phiên bản bạn đang dùng
+          java-version: '17'
           distribution: 'temurin'
-          # Dòng quan trọng nhất đây:
           cache: 'maven'
-
       - name: Build with Maven
         run: mvn -B package
